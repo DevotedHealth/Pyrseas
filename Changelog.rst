@@ -1,3 +1,7 @@
+0.8.1 (25-Apr-2019)
+
+Bumping version to make sure Puppet is working
+
 0.8.0 (12-Dec-2017)
 
 Significant rearchitecture of methods to generate SQL.
