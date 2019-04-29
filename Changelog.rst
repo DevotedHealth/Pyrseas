@@ -1,3 +1,22 @@
+0.9.0 (29-Apr-2019)
+
+DevotedHealth fork
+
+  * BREAKING CHANGE: You need to specify --dbname for yamltodb and dbtoyaml.
+    This was to better clarify as yamltodb now allows you to compare two yaml
+    files
+
+  * yamltodb allows you to compare two yaml files. Instead of --dbname, pass
+    the yaml that represents the databaes into --db-spec
+
+  * Tests run in CircleCI to match our other repositories
+
+  * Update dependency to psycopg2-binary to avoid deprecation message
+
+  * Only map dependencies for functions that are explictly present
+
+  * A bunch of other fixes that were merged into master at the time of fork
+
 0.8.0 (12-Dec-2017)
 
 Significant rearchitecture of methods to generate SQL.
