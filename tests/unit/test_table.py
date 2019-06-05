@@ -107,9 +107,12 @@ def test_table():
                         {'columns': [
                             {'group': {'default': "''::character varying", 'not_null': True, 'type': 'character varying'}},
                             {'provider': {'default': "''::character varying", 'not_null': True, 'type': 'character varying'}},
+                            # Why would you name a column this!!
+                            {'rtrim(group)': {'default': "''::character varying", 'not_null': True, 'type': 'character varying'}},
                             ],
                         'indexes' : {
-                            'indx_foo': { 'keys':["group", "provider"] },
+                            # Show that we can specify both a column name with parens and a function based key
+                            'indx_foo': { 'keys':["group", "provider", "rtrim(group)", {"btrim(group)": {}}] },
                             },
                         'unique_constraints' : {
                             'constraint_21065fe8': { 'columns':["group", "provider"] },
@@ -120,8 +123,9 @@ def test_table():
             "expected": [
                 "ALTER TABLE foo\n    ADD COLUMN \"group\" character varying NOT NULL DEFAULT ''::character varying",
                 "ALTER TABLE foo\n    ADD COLUMN provider character varying NOT NULL DEFAULT ''::character varying",
+                "ALTER TABLE foo\n    ADD COLUMN \"rtrim(group)\" character varying NOT NULL DEFAULT ''::character varying",
                 "ALTER TABLE foo ADD CONSTRAINT constraint_21065fe8 UNIQUE (\"group\", provider)",
-                "CREATE INDEX indx_foo ON foo (\"group\", provider)"
+                "CREATE INDEX indx_foo ON foo (\"group\", provider, \"rtrim(group)\", btrim(group))"
             ]
         },
     ]

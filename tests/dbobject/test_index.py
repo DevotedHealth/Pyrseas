@@ -353,7 +353,10 @@ class IndexToSqlTestCase(InputMapToSqlTestCase):
         inmap = self.std_map()
         inmap['schema public'].update({'table t1': {
             'columns': [{'c1': {'type': 'integer'}}, {'c2': {'type': 'text'}}],
-            'indexes': {'t1_idx': {'keys': ['btrim(c1)']}}}})
+            # As part of our goal to fix quoting, we needed to make sure that
+            # if it's not a column and quoted as needed, you need to put it in
+            # a dict with the key as the expression with an empty dict as value
+            'indexes': {'t1_idx': {'keys': [{'btrim(c1)': {}}]}}}})
         sql = self.to_sql(inmap, stmts)
         assert sql == ["DROP INDEX t1_idx",
                        "CREATE INDEX t1_idx ON t1 (btrim(c1))"]
