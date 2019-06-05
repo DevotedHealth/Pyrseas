@@ -203,7 +203,7 @@ class Index(DbSchemaObject):
         colspec = []
         for col in self.keys:
             if isinstance(col, str):
-                colspec.append(col)
+                colspec.append(quote_id(col))
             else:
                 clause = list(col.keys())[0]
                 vals = list(col.values())[0]

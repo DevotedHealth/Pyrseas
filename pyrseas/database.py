@@ -529,7 +529,10 @@ class Database(object):
                     del input_map[sch]
             self._trim_objects(opts.schemas)
 
-        # quote_reserved is only set to False by most tests
+        # quote_reserved is only set to False by most non-devoted tests
+        # Given that we now have a local copy based on psql reserved words,
+        # it's fine to write tests that set this to true which we do in devoted
+        # unit tests
         if quote_reserved:
             fetch_reserved_words(self.dbconn)
 

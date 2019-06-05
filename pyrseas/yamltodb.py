@@ -51,7 +51,7 @@ def main():
 
     if options.db_spec:
         dbmap = yaml.safe_load(options.db_spec)
-        stmts = db.diff_two_map(dbmap, inmap, quote_reserved=False)
+        stmts = db.diff_two_map(dbmap, inmap, quote_reserved=True)
     else:
         stmts = db.diff_map(inmap)
     if stmts:

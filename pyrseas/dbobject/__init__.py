@@ -34,7 +34,12 @@ def fetch_reserved_words(db):
     global RESERVED_WORDS
 
     if len(RESERVED_WORDS) == 0:
-        RESERVED_WORDS = [word[0] for word in
+        if db is None:
+            # These are the psql reserved words as of Junr 5th, 2019
+            # See https://www.postgresql.org/docs/current/sql-keywords-appendix.html or just run the query below on psql
+            RESERVED_WORDS = "all, analyse, analyze, and, any, array, as, asc, asymmetric, both, case, cast, check, collate, column, constraint, create, current_catalog, current_date, current_role, current_time, current_timestamp, current_user, default, deferrable, desc, distinct, do, else, end, except, false, fetch, for, foreign, from, grant, group, having, in, initially, intersect, into, lateral, leading, limit, localtime, localtimestamp, not, null, offset, on, only, or, order, placing, primary, references, returning, select, session_user, some, symmetric, table, then, to, trailing, true, union, unique, user, using, variadic, when, where, window, with".split(", ")
+        else:
+            RESERVED_WORDS = [word[0] for word in
                           db.fetchall("""SELECT word FROM pg_get_keywords()
                                          WHERE catcode = 'R'""")]
 
