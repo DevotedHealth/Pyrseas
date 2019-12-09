@@ -26,9 +26,9 @@ Requirements
 
 - `Python <http://www.python.org/>`_ 2.7, 3.4 or higher
 
-- `Psycopg2 <http://initd.org/psycopg>`_ 2.7 or higher
+- `Psycopg2 <http://initd.org/psycopg>`_ 2.8 or higher
 
-- `PyYAML <http://pyyaml.org/>`_ 3.13 or higher
+- `PyYAML <http://pyyaml.org/>`_ 5.1 or higher
 
 Contents
 --------
