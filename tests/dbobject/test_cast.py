@@ -54,7 +54,7 @@ class CastToSqlTestCase(InputMapToSqlTestCase):
             'method': 'function'}})
         sql = self.to_sql(inmap, stmts)
         # NOTE(David Chang): This is a hack to get this test to work. We reordered all drops to happen before any other statements because in theory you shouldn't be depending on a function that used to exist for your cast. If you need it, you need to have it defined in your db.yaml to use it (and thus won't be dropped). However, this test is odd in how it runs and I don't think you can hit this case in real usage
-        assert sql[0] == "DROP FUNCTION int2_bool(smallint)"
+        assert sql[0] == "DROP FUNCTION sd.int2_bool(smallint)"
         assert fix_indent(sql[1]) == CREATE_STMT1
 
     def test_create_cast_inout(self):

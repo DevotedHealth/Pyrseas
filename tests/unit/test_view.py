@@ -55,8 +55,8 @@ def test_view():
                     },
                 },
             "expected": [
-		"ALTER VIEW foo OWNER TO newowner",
-                "COMMENT ON VIEW foo IS 'new comment on foo'",
+		"ALTER VIEW public.foo OWNER TO newowner",
+                "COMMENT ON VIEW public.foo IS 'new comment on foo'",
             ],
         },
         {
@@ -80,8 +80,8 @@ def test_view():
                     },
                 },
             "expected": [
-                "DROP VIEW foo",
-                "CREATE TABLE foo (\n    month integer DEFAULT 0,\n    year character varying NOT NULL DEFAULT ''::character varying)",
+                "DROP VIEW public.foo",
+                "CREATE TABLE public.foo (\n    month integer DEFAULT 0,\n    year character varying NOT NULL DEFAULT ''::character varying)",
             ],
         },
     ]

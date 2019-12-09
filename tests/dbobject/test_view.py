@@ -119,7 +119,8 @@ class ViewToSqlTestCase(InputMapToSqlTestCase):
         "Rename an existing view"
         inmap = self.std_map()
         inmap['schema sd'].update({'view v2': {
-            'owner': 'postgres', 'oldname': 'v1', 'definition': VIEW_DEFN}})
+            'columns': [{'today': {'type': 'date'}}],
+            'oldname': 'v1', 'definition': VIEW_DEFN}})
         sql = self.to_sql(inmap, [CREATE_STMT])
         assert sql == ["ALTER VIEW sd.v1 RENAME TO v2"]
 
@@ -127,6 +128,7 @@ class ViewToSqlTestCase(InputMapToSqlTestCase):
         "Error renaming a non-existing view"
         inmap = self.std_map()
         inmap['schema sd'].update({'view v2': {
+            'columns': [{'today': {'type': 'date'}}],
             'oldname': 'v3', 'definition': VIEW_DEFN}})
         with pytest.raises(KeyError):
             self.to_sql(inmap, [CREATE_STMT])

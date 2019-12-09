@@ -135,6 +135,9 @@ class View(DbClass):
         """
         stmts = []
         for col in self.columns:
+            if col.number > len(inview.columns):
+                raise KeyError("Cannot change view column '%s'"
+                                % col.name)
             if col.name != inview.columns[col.number - 1].name:
                 raise KeyError("Cannot change name of view column '%s'"
                                 % col.name)

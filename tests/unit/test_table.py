@@ -32,7 +32,7 @@ def test_table():
                         }
                     }
                 },
-            "expected": ["ALTER TABLE foo\n    ALTER COLUMN month SET NOT NULL, ALTER COLUMN month DROP DEFAULT, ALTER COLUMN month TYPE character varying USING month::character varying, ALTER COLUMN month SET DEFAULT ''::character varying"]
+            "expected": ["ALTER TABLE public.foo\n    ALTER COLUMN month SET NOT NULL, ALTER COLUMN month DROP DEFAULT, ALTER COLUMN month TYPE character varying USING month::character varying, ALTER COLUMN month SET DEFAULT ''::character varying"]
         },
         {
             "name": "Reorder columns with type change",
@@ -54,7 +54,7 @@ def test_table():
                         }
                     }
                 },
-            "expected": ["ALTER TABLE foo\n    ALTER COLUMN month SET NOT NULL, ALTER COLUMN month DROP DEFAULT, ALTER COLUMN month TYPE character varying USING month::character varying, ALTER COLUMN month SET DEFAULT ''::character varying"]
+            "expected": ["ALTER TABLE public.foo\n    ALTER COLUMN month SET NOT NULL, ALTER COLUMN month DROP DEFAULT, ALTER COLUMN month TYPE character varying USING month::character varying, ALTER COLUMN month SET DEFAULT ''::character varying"]
         },
         {
             # The drop index should happen before while the creation should happen after
@@ -86,7 +86,7 @@ def test_table():
                         },
                     }
                 },
-            "expected": ["DROP INDEX indx_reference_mips_adjustments_month3", "ALTER TABLE foo\n    ALTER COLUMN month DROP NOT NULL, ALTER COLUMN month DROP DEFAULT, ALTER COLUMN month TYPE integer USING month::integer, ALTER COLUMN month SET DEFAULT 0", "CREATE INDEX indx_reference_mips_adjustments_month ON foo (month)"]
+            "expected": ["DROP INDEX public.indx_reference_mips_adjustments_month3", "ALTER TABLE public.foo\n    ALTER COLUMN month DROP NOT NULL, ALTER COLUMN month DROP DEFAULT, ALTER COLUMN month TYPE integer USING month::integer, ALTER COLUMN month SET DEFAULT 0", "CREATE INDEX indx_reference_mips_adjustments_month ON public.foo (month)"]
         },
     ]
 
@@ -136,9 +136,9 @@ def test_table_rename():
                     }
                 },
             "expected": [
-                'DROP INDEX indx_reference_mips_adjustments_month3',
+                'DROP INDEX public.indx_reference_mips_adjustments_month3',
                 'ALTER TABLE public.foo RENAME TO bar',
-                'CREATE INDEX indx_reference_mips_adjustments_month3 ON bar USING gin (month gin_trgm_ops)',
+                'CREATE INDEX indx_reference_mips_adjustments_month3 ON public.bar USING gin (month gin_trgm_ops)',
                 ]
         },
         {
@@ -208,11 +208,11 @@ def test_table_rename():
                     }
                 },
             "expected": [
-                'DROP INDEX indx_reference_mips_adjustments_month3',
-                "ALTER TABLE foo\n    ALTER COLUMN month DROP NOT NULL, ALTER COLUMN month DROP DEFAULT, ALTER COLUMN month TYPE integer USING month::integer, ALTER COLUMN month SET DEFAULT 0",
+                'DROP INDEX public.indx_reference_mips_adjustments_month3',
+                "ALTER TABLE public.foo\n    ALTER COLUMN month DROP NOT NULL, ALTER COLUMN month DROP DEFAULT, ALTER COLUMN month TYPE integer USING month::integer, ALTER COLUMN month SET DEFAULT 0",
                 'ALTER TABLE public.foo RENAME TO bar',
 
-                'CREATE INDEX indx_reference_mips_adjustments_month ON bar (month)',
+                'CREATE INDEX indx_reference_mips_adjustments_month ON public.bar (month)',
                 ]
         },
         {
@@ -244,7 +244,7 @@ def test_table_rename():
                 },
             "expected": [
                 'ALTER TABLE public.foo RENAME TO bar',
-                'CREATE VIEW foo AS\n   select * from bar',
+                'CREATE VIEW public.foo AS\n   select * from bar',
             ],
         },
     ]
