@@ -8,7 +8,7 @@ Pyrseas
 Pyrseas provides utilities to describe a PostgreSQL database schema as
 YAML, to verify the schema against the same or a different database
 and to generate SQL that will modify the schema to match the YAML
-description.
+description
 
 Features
 --------
