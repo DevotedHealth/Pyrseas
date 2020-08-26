@@ -119,7 +119,7 @@ class CollationToSqlTestCase(InputMapToSqlTestCase):
             'indexes': {'t1_idx': {'keys': [{'c2': {'collation': 'c1'}}]}}}})
         sql = self.to_sql(inmap, stmts)
         # NOTE(David Chang): This is a hack to get this test to work. We reordered all drops to happen before any other statements because in theory you shouldn't be depending on a previously defined collation. If you need it, you need to have it defined in your db.yaml to use it (and thus won't be dropped). However, this test is odd in how it runs and I don't think you can hit this case in real usage
-        assert sql[0] == "DROP COLLATION c1"
+        assert sql[0] == "DROP COLLATION sd.c1"
         assert fix_indent(sql[1]) == \
             "CREATE INDEX t1_idx ON sd.t1 (c2 COLLATE c1)"
 
