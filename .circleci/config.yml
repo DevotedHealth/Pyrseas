@@ -17,7 +17,7 @@ jobs:
           PYRSEAS_TEST_PORT: 5432
       # There are a bunch of specific settings we need in Postgres to run tests so we had to create a new docker image
       # See docker.md, Dockerfile.postgres, and docs/testing.rst for more information
-      - image: dchangdevoted/pyrseas-postgres:1.0.2
+      - image: dchangdevoted/pyrseas-postgres:1.0.3
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: test
