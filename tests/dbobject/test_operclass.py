@@ -91,7 +91,7 @@ class OperatorClassToSqlTestCase(InputMapToSqlTestCase):
         assert sql[1] == "DROP OPERATOR sd.=(sd.myint, sd.myint)"
         assert sql[2] == "DROP FUNCTION sd.myintlt(sd.myint, sd.myint)"
         assert sql[3] == "DROP FUNCTION sd.myinteq(sd.myint, sd.myint)"
-        assert sql[4] == "DROP FUNCTION btsd.myintcmp(sd.myint, sd.myint)"
+        assert sql[4] == "DROP FUNCTION sd.btmyintcmp(sd.myint, sd.myint)"
         assert sql[5] == "DROP TYPE sd.myint CASCADE"
         assert fix_indent(sql[6]) == "CREATE OPERATOR CLASS sd.oc1 DEFAULT " \
             "FOR TYPE sd.myint USING btree AS OPERATOR 1 " \
