@@ -87,7 +87,7 @@ class OperatorClassToSqlTestCase(InputMapToSqlTestCase):
             'functions': {1: 'sd.btmyintcmp(sd.myint,sd.myint)'}}})
         sql = self.to_sql(inmap, [CREATE_TYPE_STMT], superuser=True)
         # NOTE(David Chang): Frankly, not sure what this test does but had to modify it to pass it? This was a result of reordering the drop statements ahead of the other statements
-        assert sql[0] == "DROP OPERATOR sd.<(sd.myint, myint)"
+        assert sql[0] == "DROP OPERATOR sd.<(sd.myint, sd.myint)"
         assert sql[1] == "DROP OPERATOR sd.=(sd.myint, sd.myint)"
         assert sql[2] == "DROP FUNCTION sd.myintlt(sd.myint, sd.myint)"
         assert sql[3] == "DROP FUNCTION sd.myinteq(sd.myint, sd.myint)"
