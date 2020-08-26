@@ -35,7 +35,7 @@ setup(
             'dbaugment = pyrseas.dbaugment:main']},
 
     install_requires=[
-        'psycopg2-binary >= 2.8.0',
+        'psycopg2-binary >= 2.8.5',
         'PyYAML >= 5.1.0'],
 
     tests_require=['pytest'],
