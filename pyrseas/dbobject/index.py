@@ -171,6 +171,18 @@ class Index(DbSchemaObject):
                 key = rest[:loc] if loc != -1 else rest.lstrip()
                 keyopts = key.split()[1:]
                 key = key.split()[0]
+                # If key is all lowercase inside quotes, then it's a reserved
+                # keyword but we can unqoute so the yaml looks cleaner
+                #
+                # This bandaids over the issue where a reserved keyword as
+                # column name results in different yaml files, causing us to
+                # drop and recreate the index
+                #
+                # This fix is only for indexes so I presume we'll hit it with
+                # views or something else also
+                if key.startswith('"') and key.endswith('"') and key == key.lower():
+                    key = key[1:-1]
+
                 rest = rest[loc + 1:]
             rest = rest.lstrip()
             skipnext = False
