@@ -1,3 +1,14 @@
+0.8.9 (27-Aug-2020)
+
+  * yaml should not unnecessarily quote column names indexes
+
+    This bandaids over the issue where a reserved keyword as
+    column name results in different yaml files, causing us to
+    drop and recreate the index
+
+    This fix is only for indexes so I presume we'll hit it with
+    views or something else also
+
 0.8.8 (10-Dec-2019)
 
 Remove "Support renaming of tables"
