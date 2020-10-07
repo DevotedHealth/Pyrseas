@@ -1,3 +1,7 @@
+0.8.10 (07-Oct-2020)
+
+  * use pyyaml's C-based parser, which is an ~order of mag faster
+
 0.8.9 (27-Aug-2020)
 
   * yaml should not unnecessarily quote column names indexes
