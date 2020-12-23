@@ -1,3 +1,7 @@
+0.8.11 (23-Dec-2020)
+
+  * Update indexes when predicates changes
+
 0.8.10 (07-Oct-2020)
 
   * use pyyaml's C-based parser, which is an ~order of mag faster
