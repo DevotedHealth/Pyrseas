@@ -88,6 +88,74 @@ def test_table():
                 },
             "expected": ["DROP INDEX indx_reference_mips_adjustments_month3", "ALTER TABLE foo\n    ALTER COLUMN month DROP NOT NULL, ALTER COLUMN month DROP DEFAULT, ALTER COLUMN month TYPE integer USING month::integer, ALTER COLUMN month SET DEFAULT 0", "CREATE INDEX indx_reference_mips_adjustments_month ON foo (month)"]
         },
+        {
+            "name": "No change to index predicate",
+            "a": {'schema public':
+                    {'table foo':
+                        {'columns': [
+                            {'month': {'default': "''::character varying", 'not_null': True, 'type': 'character varying'}},
+                            ],
+                            'indexes' : {
+                                'constraint1': {
+                                    'keys': ["month"],
+                                    'unique': True,
+                                    'predicate': "month != 'UNKNOWN'"
+                                },
+                            },
+                        },
+                    },
+                },
+            "b": {'schema public':
+                    {'table foo':
+                        {'columns': [
+                            {'month': {'default': "''::character varying", 'not_null': True, 'type': 'character varying'}},
+                            ],
+                            'indexes' : {
+                                'constraint1': {
+                                    'keys': ["month"],
+                                    'unique': True,
+                                    'predicate': "month != 'UNKNOWN'"
+                                },
+                            },
+                        },
+                    },
+                },
+            "expected": [],
+        },
+        {
+            "name": "Change index predicate",
+            "a": {'schema public':
+                    {'table foo':
+                        {'columns': [
+                            {'month': {'default': "''::character varying", 'not_null': True, 'type': 'character varying'}},
+                            ],
+                            'indexes' : {
+                                'constraint1': {
+                                    'keys': ["month"],
+                                    'unique': True,
+                                    'predicate': "month != 'UNKNOWN'"
+                                },
+                            },
+                        },
+                    },
+                },
+            "b": {'schema public':
+                    {'table foo':
+                        {'columns': [
+                            {'month': {'default': "''::character varying", 'not_null': True, 'type': 'character varying'}},
+                            ],
+                            'indexes' : {
+                                'constraint1': {
+                                    'keys': ["month"],
+                                    'unique': True,
+                                    'predicate': "( month != 'UNKNOWN' AND month != 'JUNE' )"
+                                },
+                            },
+                        },
+                    },
+                },
+            "expected": ['DROP INDEX constraint1', "CREATE UNIQUE INDEX constraint1 ON foo (month)\n    WHERE ( month != 'UNKNOWN' AND month != 'JUNE' )"],
+        },
     ]
 
     for test_case in test_cases:

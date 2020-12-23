@@ -301,10 +301,12 @@ class Index(DbSchemaObject):
 
         if self.access_method != inindex.access_method \
                 or self.unique != inindex.unique \
+                or self.predicate != inindex.predicate \
                 or self.keys != inindex.keys:
             stmts.append("DROP INDEX %s" % self.qualname())
             self.access_method = inindex.access_method
             self.unique = inindex.unique
+            self.predicate = inindex.predicate
             self.keys = inindex.keys
             stmts.append(self.create())
 
