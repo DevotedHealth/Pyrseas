@@ -1,3 +1,8 @@
+0.8.12 (28-Dec-2020)
+
+  * Same as 0.8.11 but reverting a commit that I'm not confident in that may or
+    may not impact the sql query escaping
+
 0.8.11 (23-Dec-2020)
 
   * Update indexes when predicates changes
